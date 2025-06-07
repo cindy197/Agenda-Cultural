@@ -2,6 +2,7 @@ package com.agenda.agendacultural.infraestructure.exception;
 
 
 import com.agenda.agendacultural.domain.exception.BusinessException;
+import com.agenda.agendacultural.domain.exception.DuplicationException;
 import com.agenda.agendacultural.domain.exception.NotFoundException;
 import com.agenda.agendacultural.domain.exception.ValidationException;
 import org.springframework.http.HttpHeaders;
@@ -33,6 +34,11 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public final ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex, WebRequest request) {
         return createErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DuplicationException.class)
+    public final ResponseEntity<ErrorResponse> handleDuplicationException(DuplicationException ex, WebRequest request) {
+        return createErrorResponse(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
 

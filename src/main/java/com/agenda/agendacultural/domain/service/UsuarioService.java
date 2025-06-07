@@ -3,6 +3,7 @@ package com.agenda.agendacultural.domain.service;
 
 
 import com.agenda.agendacultural.domain.Usuario;
+import com.agenda.agendacultural.domain.exception.DuplicationException;
 import com.agenda.agendacultural.domain.exception.NotFoundException;
 import com.agenda.agendacultural.domain.repository.UsuarioRepository;
 import com.agenda.agendacultural.domain.repository.specification.UsuarioSpecifications;
@@ -31,8 +32,15 @@ public class UsuarioService {
     }
 
     public Usuario salvar(UsuarioDTO dto) {
+        if (existeUsuarioComEmail(dto.getEmail())) {
+            throw new DuplicationException("Já existe um usuário cadastrado com esse e-mail!");
+        }
+
         Usuario usuario = usuarioMapper.toEntity(dto);
+
         return usuarioRepository.save(usuario);
+
+
     }
 
     public Usuario buscarUsuario(String id) {
@@ -59,5 +67,13 @@ public class UsuarioService {
 
         return usuarioRepository.findAll(finalSpecification, pageable);
     }
+
+    private boolean existeUsuarioComEmail (String email) {
+        return usuarioRepository
+                .findByEmail(email)
+                .isPresent();
+    }
+
+
 
 }

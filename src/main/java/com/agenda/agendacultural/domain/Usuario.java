@@ -30,7 +30,8 @@ public class Usuario {
     @Column(name = "senha", nullable = false, length = 50)
     private String senha;
 
-    @Column(name = "perfil", nullable = false, length = 50)
-    private String perfil;
+    @Column(name = "perfil", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UsuarioPerfil perfil;
 
 }

@@ -1,8 +1,10 @@
 package com.agenda.agendacultural.infraestructure.dto;
 
+import com.agenda.agendacultural.domain.UsuarioPerfil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,8 +32,7 @@ public class UsuarioDTO {
     @Size(min = 10, max = 50, message = "Senha deve ter de 10 a 50 caracteres")
     private String senha;
 
-    @Schema(description = "Perfil de acesso do usuário.", example = "ROLE_USER", requiredMode = Schema.RequiredMode.REQUIRED)
-    @Size(min = 2, max = 50, message = "Perfil deve ter de 2 a 50 caracteres")
-    @NotBlank(message = "Perfil não pode ser vazio")
-    private String perfil;
+    @Schema(description = "Perfil de acesso do usuário.", example = "VISITANTE", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotNull(message = "Perfil não pode ser vazio")
+    private UsuarioPerfil perfil;
 }
