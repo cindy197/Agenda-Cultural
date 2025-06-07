@@ -1,4 +1,4 @@
-package com.agenda.agendacultural.domain.model;
+package com.agenda.agendacultural.domain.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

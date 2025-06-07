@@ -1,6 +1,6 @@
 package com.agenda.agendacultural.infraestructure.dto;
 
-import com.agenda.agendacultural.domain.model.UsuarioPerfil;
+import com.agenda.agendacultural.domain.model.enums.UsuarioPerfil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

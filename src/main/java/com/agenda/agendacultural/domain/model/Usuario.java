@@ -1,5 +1,6 @@
 package com.agenda.agendacultural.domain.model;
 
+import com.agenda.agendacultural.domain.model.enums.UsuarioPerfil;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
