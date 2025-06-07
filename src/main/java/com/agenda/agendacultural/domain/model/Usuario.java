@@ -1,4 +1,4 @@
-package com.agenda.agendacultural.domain;
+package com.agenda.agendacultural.domain.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -33,5 +33,7 @@ public class Usuario {
     @Column(name = "perfil", nullable = false)
     @Enumerated(EnumType.STRING)
     private UsuarioPerfil perfil;
+
+
 
 }

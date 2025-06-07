@@ -1,4 +1,4 @@
-package com.agenda.agendacultural.domain;
+package com.agenda.agendacultural.domain.model;
 
 public enum UsuarioPerfil {
 

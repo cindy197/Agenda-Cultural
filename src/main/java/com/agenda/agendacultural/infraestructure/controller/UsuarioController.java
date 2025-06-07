@@ -1,7 +1,7 @@
 package com.agenda.agendacultural.infraestructure.controller;
 
 
-import com.agenda.agendacultural.domain.Usuario;
+import com.agenda.agendacultural.domain.model.Usuario;
 import com.agenda.agendacultural.domain.service.UsuarioService;
 import com.agenda.agendacultural.infraestructure.dto.UsuarioDTO;
 import io.swagger.v3.oas.annotations.Operation;

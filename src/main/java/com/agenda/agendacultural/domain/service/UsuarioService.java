@@ -2,8 +2,7 @@ package com.agenda.agendacultural.domain.service;
 
 
 
-import com.agenda.agendacultural.domain.Usuario;
-import com.agenda.agendacultural.domain.UsuarioPerfil;
+import com.agenda.agendacultural.domain.model.Usuario;
 import com.agenda.agendacultural.domain.exception.DuplicationException;
 import com.agenda.agendacultural.domain.exception.NotFoundException;
 import com.agenda.agendacultural.domain.repository.UsuarioRepository;
@@ -81,6 +80,8 @@ public class UsuarioService {
                 .findByEmail(email)
                 .isPresent();
     }
+
+
 
 
 

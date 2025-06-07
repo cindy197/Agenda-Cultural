@@ -1,7 +1,7 @@
 package com.agenda.agendacultural.domain.repository;
 
 
-import com.agenda.agendacultural.domain.Usuario;
+import com.agenda.agendacultural.domain.model.Usuario;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
