@@ -3,12 +3,14 @@ package com.agenda.agendacultural.domain.service;
 
 
 import com.agenda.agendacultural.domain.Usuario;
+import com.agenda.agendacultural.domain.UsuarioPerfil;
 import com.agenda.agendacultural.domain.exception.DuplicationException;
 import com.agenda.agendacultural.domain.exception.NotFoundException;
 import com.agenda.agendacultural.domain.repository.UsuarioRepository;
 import com.agenda.agendacultural.domain.repository.specification.UsuarioSpecifications;
 import com.agenda.agendacultural.infraestructure.dto.UsuarioDTO;
 import com.agenda.agendacultural.infraestructure.mapper.UsuarioMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +44,12 @@ public class UsuarioService {
 
 
     }
+
+   @Transactional
+   public void deleteUsuario (String id) {
+       Usuario usuario = buscarUsuario(id);
+       usuarioRepository.delete(usuario);
+   }
 
     public Usuario buscarUsuario(String id) {
         return usuarioRepository.findById(id).orElseThrow(()

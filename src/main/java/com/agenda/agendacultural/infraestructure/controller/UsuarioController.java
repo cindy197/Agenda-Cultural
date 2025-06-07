@@ -95,5 +95,13 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.buscarUsuarios(perfil, pageable));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUsuario(@PathVariable("id") String id) {
+        usuarioService.deleteUsuario(id);
+        return ResponseEntity.noContent().build();
+
+    }
+
+
 
 }
