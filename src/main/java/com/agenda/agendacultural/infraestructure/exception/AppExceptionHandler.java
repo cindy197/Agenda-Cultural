@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
 public class AppExceptionHandler extends ResponseEntityExceptionHandler {
+    private static final Logger logger = LoggerFactory.getLogger(AppExceptionHandler.class);
 
     @ExceptionHandler(ValidationException.class)
     public final ResponseEntity<ErrorResponse> handleValidationException(ValidationException ex, WebRequest request) {
@@ -61,6 +65,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex, WebRequest request) {
+        logger.error("Erro interno não tratado", ex);
         return createErrorResponse("Ocorreu um erro interno inesperado", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

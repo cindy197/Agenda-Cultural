@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,21 +25,23 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository,
-                          UsuarioMapper usuarioMapper) {
+                          UsuarioMapper usuarioMapper,
+                          PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioMapper = usuarioMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Usuario salvar(UsuarioDTO dto) {
         if (existeUsuarioComEmail(dto.getEmail())) {
             throw new DuplicationException("Já existe um usuário cadastrado com esse e-mail!");
         }
-
         Usuario usuario = usuarioMapper.toEntity(dto);
-
+        usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
         return usuarioRepository.save(usuario);
 
 
