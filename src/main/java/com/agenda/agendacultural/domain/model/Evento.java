@@ -49,4 +49,8 @@ public class Evento {
     @Enumerated(EnumType.STRING)
     private EventoStatus status;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
 }

@@ -4,6 +4,7 @@ package com.agenda.agendacultural.infraestructure.controller;
 import com.agenda.agendacultural.domain.model.Usuario;
 import com.agenda.agendacultural.domain.service.UsuarioService;
 import com.agenda.agendacultural.infraestructure.dto.UsuarioDTO;
+import com.agenda.agendacultural.infraestructure.dto.UsuarioSenhaDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -74,6 +75,12 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuarioService.buscarUsuario(id));
     }
 
+    @PutMapping
+    public ResponseEntity<Void> alterarSenha(@RequestBody @Valid UsuarioSenhaDTO usuarioDTO) {
+        usuarioService.alterarSenha(usuarioDTO);
+        return ResponseEntity.noContent().build();
+    }
+
 //    @ResponseStatus(HttpStatus.OK)
 //    @Operation(summary = "Lista todos os usuários de forma paginada",
 //            description = "Retorna uma lista paginada de usuários. É possível filtrar os resultados por perfil.")
@@ -95,12 +102,12 @@ public class UsuarioController {
 //        return ResponseEntity.ok(usuarioService.buscarUsuarios(perfil, pageable));
 //    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUsuario(@PathVariable("id") String id) {
-        usuarioService.deleteUsuario(id);
-        return ResponseEntity.noContent().build();
-
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteUsuario(@PathVariable("id") String id) {
+//        usuarioService.deleteUsuario(id);
+//        return ResponseEntity.noContent().build();
+//
+//    }
 
 
 
