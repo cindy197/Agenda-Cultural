@@ -38,15 +38,6 @@ public class EventoService {
     public Evento salvar(EventoDTO dto) {
         Evento evento = eventoMapper.toEntity(dto);
         evento.setStatus(EventoStatus.EM_ANALISE);
-
-        evento.setCalendarios(new ArrayList<>());
-
-        dto.getCalendarios().forEach(c -> {
-            Calendario calendario = calendarioMapper.toEntity(c);
-            calendario.setEvento(evento);
-            evento.getCalendarios().add(calendario);
-        });
-
         return eventoRepository.save(evento);
     }
 
