@@ -1,6 +1,7 @@
 package com.agenda.agendacultural.domain.model;
 
 import com.agenda.agendacultural.domain.model.enums.UsuarioPerfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,8 @@ public class Usuario {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "senha", nullable = false, length = 50)
+    @JsonIgnore
+    @Column(name = "senha", nullable = false, length = 255)
     private String senha;
 
     @Column(name = "perfil", nullable = false)
