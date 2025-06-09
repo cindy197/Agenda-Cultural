@@ -1,23 +1,22 @@
 package com.agenda.agendacultural.domain.service;
 
+import com.agenda.agendacultural.domain.exception.ForbiddenException;
 import com.agenda.agendacultural.domain.exception.NotFoundException;
-import com.agenda.agendacultural.domain.model.Calendario;
 import com.agenda.agendacultural.domain.model.Evento;
 import com.agenda.agendacultural.domain.model.Usuario;
 import com.agenda.agendacultural.domain.model.enums.EventoStatus;
+import com.agenda.agendacultural.domain.model.enums.TipoCategoria;
+import com.agenda.agendacultural.domain.model.enums.UsuarioPerfil;
 import com.agenda.agendacultural.domain.repository.EventoRepository;
 import com.agenda.agendacultural.infraestructure.dto.EventoDTO;
 import com.agenda.agendacultural.infraestructure.mapper.CalendarioMapper;
 import com.agenda.agendacultural.infraestructure.mapper.EventoMapper;
-import jakarta.transaction.Transactional;
-import org.hibernate.query.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,6 +29,7 @@ public class EventoService {
     private final UsuarioService usuarioService;
 
     private final CalendarioMapper calendarioMapper;
+
 
     @Autowired
     public EventoService(EventoRepository eventoRepository,
@@ -58,12 +58,30 @@ public class EventoService {
     }
 
     public void deletarEvento(String id) {
+        Usuario usuario = usuarioService.buscarUsuarioLogado();
         Evento evento = buscarPorId(id);
+        if (usuario.getPerfil() != UsuarioPerfil.ADMIN && !evento.getUsuario().getEmail().equals(usuario.getEmail())) {
+            throw new ForbiddenException("Usuario não tem autorização para deletar evento! ");
+        }
+
         eventoRepository.delete(evento);
+
     }
 
     public List<Evento> buscarTodos() {
         return eventoRepository.findAll();
     }
+
+    public List<Evento> buscarCategoriaData(LocalDate inicio, LocalDate fim, TipoCategoria categoria) {
+        return eventoRepository.findComFiltros(inicio, fim, categoria);
+    }
+
+    public List<Evento> buscarMeusEventos(){
+        Usuario usuario = usuarioService.buscarUsuarioLogado();
+
+        return eventoRepository.findByUsuarioEmail(usuario.getEmail());
+    }
+
+
 
 }

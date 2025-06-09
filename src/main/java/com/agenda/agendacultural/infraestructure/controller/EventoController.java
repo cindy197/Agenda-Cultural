@@ -52,4 +52,12 @@ public class EventoController {
         List<Evento> eventos = eventoService.buscarTodos();
         return ResponseEntity.ok(eventos);
     }
+
+    @GetMapping("/meus-eventos")
+    @Operation(summary = "Listar todos os eventos criados pelo usuario")
+    public ResponseEntity<List<Evento>> listarMeusEventos() {
+        List<Evento> eventos = eventoService.buscarMeusEventos();
+        return ResponseEntity.ok(eventos);
+    }
+
 }

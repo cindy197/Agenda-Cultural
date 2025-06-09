@@ -1,10 +1,7 @@
 package com.agenda.agendacultural.infraestructure.exception;
 
 
-import com.agenda.agendacultural.domain.exception.BusinessException;
-import com.agenda.agendacultural.domain.exception.DuplicationException;
-import com.agenda.agendacultural.domain.exception.NotFoundException;
-import com.agenda.agendacultural.domain.exception.ValidationException;
+import com.agenda.agendacultural.domain.exception.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -73,5 +70,11 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(message);
         return new ResponseEntity<>(errorResponse, status);
     }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public final ResponseEntity<ErrorResponse> handleForbiddenException(ForbiddenException ex, WebRequest request) {
+        return createErrorResponse(ex.getMessage(), HttpStatus.FORBIDDEN);
+    }
+
 
 }
