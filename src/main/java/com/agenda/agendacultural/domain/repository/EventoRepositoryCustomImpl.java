@@ -25,9 +25,13 @@ public class EventoRepositoryCustomImpl implements EventoRepositoryCustom{
 
         var parametros = new HashMap<String, Object>();
 
-        if (inicio != null && fim != null) {
-            jpql.append("AND c.data BETWEN :dataInicio AND :dataFim ");
+        if (inicio != null) {
+            jpql.append("AND c.data >= :dataInicio ");
             parametros.put("dataInicio", inicio);
+        }
+
+        if (fim != null) {
+            jpql.append("AND c.data <= :dataFim ");
             parametros.put("dataFim", fim);
         }
 
