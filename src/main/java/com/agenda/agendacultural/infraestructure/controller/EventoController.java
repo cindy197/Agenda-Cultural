@@ -1,9 +1,12 @@
 package com.agenda.agendacultural.infraestructure.controller;
 
 import com.agenda.agendacultural.domain.model.Evento;
+import com.agenda.agendacultural.domain.model.enums.EventoStatus;
 import com.agenda.agendacultural.domain.model.enums.TipoCategoria;
 import com.agenda.agendacultural.domain.service.EventoService;
+import com.agenda.agendacultural.infraestructure.dto.EventoAlteracaoDTO;
 import com.agenda.agendacultural.infraestructure.dto.EventoDTO;
+import com.agenda.agendacultural.infraestructure.dto.EventoStatusDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -40,6 +43,16 @@ public class EventoController {
     public ResponseEntity<Evento> buscarEventoId(@PathVariable String id) {
         Evento evento = eventoService.buscarPorId(id);
         return ResponseEntity.ok(evento);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Evento> atualizarEvento(@PathVariable String id, @RequestBody @Valid EventoAlteracaoDTO eventoDTO) {
+        return new ResponseEntity<>(eventoService.alterarEvento(id, eventoDTO), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Evento> alterarStatusEvento(@PathVariable String id, @RequestBody @Valid EventoStatusDTO status) {
+        return new ResponseEntity<>(eventoService.alterarStatusEvento(id, status), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
