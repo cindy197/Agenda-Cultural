@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -49,7 +50,7 @@ public class EventoController {
     public ResponseEntity<Evento> atualizarEvento(@PathVariable String id, @RequestBody @Valid EventoAlteracaoDTO eventoDTO) {
         return new ResponseEntity<>(eventoService.alterarEvento(id, eventoDTO), HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<Evento> alterarStatusEvento(@PathVariable String id, @RequestBody @Valid EventoStatusDTO status) {
         return new ResponseEntity<>(eventoService.alterarStatusEvento(id, status), HttpStatus.OK);
