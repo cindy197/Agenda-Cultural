@@ -76,7 +76,7 @@ public class EventoController {
         return ResponseEntity.ok(eventos);
     }
 
-    @GetMapping("/meus-eventos")
+    @GetMapping("/meus")
     @Operation(summary = "Listar todos os eventos criados pelo usuario")
     public ResponseEntity<List<Evento>> listarMeusEventos() {
         List<Evento> eventos = eventoService.buscarMeusEventos();

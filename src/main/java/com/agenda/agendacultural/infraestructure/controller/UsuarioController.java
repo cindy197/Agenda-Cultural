@@ -81,6 +81,11 @@ public class UsuarioController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/meu")
+    public ResponseEntity<Usuario> buscarUsuarioLogado() {
+        return ResponseEntity.ok().body(usuarioService.buscarUsuarioLogado());
+    }
+
 //    @ResponseStatus(HttpStatus.OK)
 //    @Operation(summary = "Lista todos os usuários de forma paginada",
 //            description = "Retorna uma lista paginada de usuários. É possível filtrar os resultados por perfil.")
