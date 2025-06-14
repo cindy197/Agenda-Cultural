@@ -84,4 +84,14 @@ public class EventoController {
         return ResponseEntity.ok(eventos);
     }
 
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<Evento>> listarPorStatus(@PathVariable EventoStatus status) {
+        return ResponseEntity.ok(eventoService.buscarPorStatus(status));
+    }
+
+    @GetMapping("/publicos/aprovados")
+    @Operation(summary = "Listar todos os eventos aprovados (rota pública)")
+    public ResponseEntity<List<Evento>> listarEventosAprovados() {
+        return ResponseEntity.ok(eventoService.buscarPorStatus(com.agenda.agendacultural.domain.model.enums.EventoStatus.APROVADO));
+    }
 }

@@ -88,26 +88,25 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuarioService.buscarUsuarioLogado());
     }
 
-//    @ResponseStatus(HttpStatus.OK)
-//    @Operation(summary = "Lista todos os usuários de forma paginada",
-//            description = "Retorna uma lista paginada de usuários. É possível filtrar os resultados por perfil.")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Listagem realizada com sucesso",
-//                    content = { @Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = Page.class)) }),
-//
-//            @ApiResponse(responseCode = "500", description = "Erro interno no servidor",
-//                    content = @Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = ErrorResponse.class)))
-//    })
-//    @GetMapping
-//    public ResponseEntity<Page<Usuario>> listarUsuarios(
-//            @Parameter(description = "Filtrar por nome do perfil do usuário", example = "ROLE_ADMIN")
-//            @RequestParam(value = "perfil", required = false) String perfil,
-//            Pageable pageable) {
-//
-//        return ResponseEntity.ok(usuarioService.buscarUsuarios(perfil, pageable));
-//    }
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Lista todos os usuários de forma paginada",
+            description = "Retorna uma lista paginada de usuários. É possível filtrar os resultados por perfil.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Listagem realizada com sucesso",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Page.class)) }),
+
+            @ApiResponse(responseCode = "500", description = "Erro interno no servidor",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Page<Usuario>> listarUsuarios(
+            @RequestParam(value = "perfil", required = false) String perfil,
+            Pageable pageable) {
+        return ResponseEntity.ok(usuarioService.buscarUsuarios(perfil, pageable));
+    }
 
 //    @DeleteMapping("/{id}")
 //    public ResponseEntity<Void> deleteUsuario(@PathVariable("id") String id) {

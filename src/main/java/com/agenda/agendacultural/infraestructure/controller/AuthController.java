@@ -3,6 +3,8 @@ package com.agenda.agendacultural.infraestructure.controller;
 import com.agenda.agendacultural.infraestructure.dto.AuthRequest;
 import com.agenda.agendacultural.infraestructure.dto.AuthResponse;
 import com.agenda.agendacultural.infraestructure.service.JwtService;
+import com.agenda.agendacultural.domain.model.Usuario;
+import com.agenda.agendacultural.domain.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +20,8 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
@@ -26,6 +30,10 @@ public class AuthController {
         );
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String token = jwtService.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthResponse(token));
+
+        String email = userDetails.getUsername();
+        Usuario usuario = usuarioService.buscarUsuarioPorEmail(email);
+
+        return ResponseEntity.ok(new AuthResponse(token, usuario.getNome(), usuario.getPerfil().name()));
     }
 }

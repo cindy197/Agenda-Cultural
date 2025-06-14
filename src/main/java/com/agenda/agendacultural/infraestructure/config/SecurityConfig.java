@@ -33,10 +33,12 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/login", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                .requestMatchers(HttpMethod.GET, "/eventos/publicos/aprovados").permitAll()
                 .anyRequest().authenticated()
             )
-            .userDetailsService(customUserDetailsService);
+            .userDetailsService(customUserDetailsService)
+            .cors(cors -> {}); // Habilita CORS padrão (todos os domínios)
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

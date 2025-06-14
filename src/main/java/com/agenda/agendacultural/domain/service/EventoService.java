@@ -123,6 +123,7 @@ public class EventoService {
         }
     }
 
-
-
+    public List<Evento> buscarPorStatus(EventoStatus status) {
+        return eventoRepository.findByStatus(status);
+    }
 }
